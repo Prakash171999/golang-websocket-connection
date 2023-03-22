@@ -20,3 +20,5 @@ var upgrader = websocket.Upgrader{
 The above code is defining an instance of the Upgrader struct from the websocket package in Go. The Upgrader struct is used to upgrade a normal HTTP connection to a WebSocket connection.
 The code is setting the CheckOrigin field of the Upgrader struct to a function that takes an http.Request object and returns a boolean value. This function is used to solve cross-domain problems that may arise when establishing a WebSocket connection. By setting it to true, the Upgrader allows connections from any origin.
 The code is also using the default options for the Upgrader struct, meaning that no other options are being set. The Upgrader can be customized further by setting other fields such as ReadBufferSize and WriteBufferSize to specify the size of the read and write buffers used by the WebSocket connection.
+
+#3
