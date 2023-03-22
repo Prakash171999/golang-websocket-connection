@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Golang websocket connection</title>
+  </head>
+
+  <body>
+    <h2>Websocket connection</h2>
+    <script>
+      var ws = new WebSocket("ws://localhost:8080/ws");
+      //Triggered when the connection is opened
+      ws.onopen = function (evt) {
+        console.log("Websocket Connection opened...");
+        ws.send("Hello!, This is my message");
+      };
+      //Triggered when a message is received
+      ws.onmessage = function (evt) {
+        console.log("Received Message: " + evt.data);
+      };
+      //Triggered when the connection is closed
+      ws.onclose = function (evt) {
+        console.log("Connection closed.");
+      };
+    </script>
+  </body>
+</html>

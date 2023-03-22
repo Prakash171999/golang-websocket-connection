@@ -8,7 +8,7 @@ import (
 	"github.com/gorilla/websocket"
 )
 
-var upgrader = websocket.Upgrader{
+var websocketUpgrader = websocket.Upgrader{
 	// Solve cross-domain problems
 	CheckOrigin: func(r *http.Request) bool {
 		return true
@@ -17,9 +17,9 @@ var upgrader = websocket.Upgrader{
 
 func ws(c *gin.Context) {
 	//Upgrade get request to webSocket protocol
-	ws, err := upgrader.Upgrade(c.Writer, c.Request, nil)
+	ws, err := websocketUpgrader.Upgrade(c.Writer, c.Request, nil)
 	if err != nil {
-		log.Print("upgrade:", err)
+		log.Print("Upgrade Error:", err)
 		return
 	}
 	defer ws.Close()
@@ -29,23 +29,22 @@ func ws(c *gin.Context) {
 		//read data from ws
 		mt, message, err := ws.ReadMessage()
 		if err != nil {
-			log.Println("read:", err)
+			log.Println("Read Message Error:", err)
 			break
 		}
-		log.Printf("recv: %s", message)
+		log.Printf("Recieved Message: %s", message)
 
 		//write ws data
 		err = ws.WriteMessage(mt, message)
 		if err != nil {
-			log.Println("write:", err)
+			log.Println("Write Message:", err)
 			break
 		}
 	}
 }
 
 func main() {
-	bindAddress := "localhost:8080"
 	r := gin.Default()
 	r.GET("/ws", ws)
-	r.Run(bindAddress)
+	r.Run(":8080")
 }
